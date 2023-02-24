@@ -31,7 +31,7 @@ Run
 
 Then visit:
 
-    http://localhost:3000
+    http://localhost:8000
 
 where the "remote control" is live.
 
