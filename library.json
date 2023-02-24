@@ -1,0 +1,10 @@
+{
+    "media":
+        [
+            {
+                "id": 1,
+                "title": "Griffith",
+                "src": "/home/pi/deba/videos"                
+              }
+        ]
+}

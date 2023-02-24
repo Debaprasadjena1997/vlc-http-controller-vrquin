@@ -1,0 +1,210 @@
+<!-- myplayer object contains all the info on Player
+    myplayer = {
+        "server": server configured ,
+        connectionStatus,
+        myIpAddress,     //string of IP addresses
+        ethMac,
+        wifiMac,
+        "cpuSerialNumber": player cpu number ,
+        "installation": installation  ,
+        "secret":   group name to which player is registred,
+        "orientation":  display orientation
+        "resolution":  display resolution ,
+        "nwinfo": {
+            "LINK": network status,
+            "DHCP": network status,
+            "PING": network status,
+            "DNS":  network status,
+            "NETSTATUS": network status
+        },
+        "version": player software version,
+        "name": player name,
+        "TZ": time zone to which the player is set
+    },
+    systemIP: Array of IP addresses,
+    playerId
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Welcome page for piSignage player</title>
+    <style>
+        html,
+        body {
+            /*font-size: 32px;*/
+            /* Change this to change the sizes of all texts*/
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            color: white;
+            font-family: sans-serif, Helvetica, Arial;
+            font-weight: 300;
+            /*overflow: scroll;*/
+
+            /*background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 100%);*/
+            /*
+                 background-image: url("background.png");
+                 background-repeat: no-repeat;
+                 background-size: cover;
+             */
+        }
+
+        @media (orientation: landscape) {
+
+            html,
+            body {
+                /* flex-direction: row; */
+                font-size: 2vw;
+                /* font-size: 32px; */
+            }
+        }
+
+        @media (orientation: portrait) {
+
+            html,
+            body {
+                /* flex-direction: column; */
+                font-size: 2vh;
+            }
+        }
+
+        .offline {
+            background-color: #111111;
+            /*background: linear-gradient(to bottom, rgba(125, 125, 125, 1) 0%, rgba(28, 28, 28, 1) 100%);*/
+        }
+
+        .online {
+            background-color: darkslategray;
+            /*background: linear-gradient(to bottom, rgba(87, 178, 203, 1) 0%, rgba(54, 133, 155, 1) 100%);*/
+        }
+
+        .container {
+            height: 90%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-id {
+            font-size: 1rem;
+            color: #f0f0f0;
+            text-align: center;
+        }
+
+        .citation {
+            color: orange;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.5rem
+        }
+
+        p {
+            color: darkgrey;
+            font-weight: 100;
+            padding: 5px;
+            margin: 0;
+            text-align: center;
+        }
+
+        strong {
+            font-weight: 600;
+            color: white;
+            padding: 5px;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="online">
+    <div class="container">
+        <div class="title">Welcome</div>
+        <div class="player-id"><span>player ID</span><br><span style="font-size: 2rem;">4000-0000-0182-7a52</span></div>
+        <div class="message-container">
+
+            <p> To connect from browser use
+
+                <strong>http://192.168.29.207:8000</strong>
+
+                <strong>http://192.168.100.1:8000</strong>
+
+            </p>
+            <p>
+                To locally change settings, connect keyboard and press "Ctrl N" OR "F6"
+            </p>
+
+        </div>
+        <!-- <div class="message-container">
+            <p>
+                Registered server:
+                <strong>http://165.22.220.94:3000</strong>
+                Connection status:
+                <strong>Disconnected</strong>
+            </p>
+            <p>Register your player id at http://165.22.220.94:3000 to manage</p>
+            <p>
+
+                account: <strong>biranchi</strong>
+
+
+                group: <strong>__player__4000000001827a52</strong>
+
+
+                version: <strong>4.8.0</strong>
+
+
+                name: <strong>piPlayer</strong>
+
+            </p>
+        </div> -->
+        <div class="message-container">
+            <p>Player IP addresses:
+
+                <strong>192.168.29.207</strong>
+
+                <strong>192.168.100.1</strong>
+
+            </p>
+            <p>
+
+                Ethernet MAC: <strong>e4:5f:01:82:7a:52</strong>
+
+
+                wifi MAC: <strong>e4:5f:01:82:7a:53</strong>
+
+            </p>
+            <p>
+                Connectivity&nbsp;
+                Link: <strong>UP</strong>,
+                DNS: <strong>OK</strong>,
+                PING: <strong>OK</strong>,
+                DHCP: <strong> 192.168.29.1</strong>
+            </p>
+        </div>
+    </div>
+    <!-- <i class="citation">For queries and issues please write to support@pisignage.com</i> -->
+</body>
+
+</html>
