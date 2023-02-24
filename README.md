@@ -29,6 +29,8 @@ Run
 
     node index.js
 
+    node index.js
+
 Then visit:
 
     http://localhost:8000
