@@ -32,6 +32,8 @@ Run
     cd vlc-http-controller-vrquin
 
     npm install express
+    
+    sudo pip install screen-brightness-control
 
     node index.js
 
