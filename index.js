@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const { spawn } = require('child_process');
-// const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -13,7 +13,7 @@ var bri = 5;
 var vlc;
 const temperatures = [];
 /* LISTENING PARAMETERS */
-
+// const length = fs.readdirSync("/videos").length
 vlc = spawn('vlc', ['-I', 'rc', '--rc-fake-tty']);
 
 var stdout_queue = new Array();
@@ -42,7 +42,6 @@ vlc.stderr.on('data', (data) => {
 app.get("/library", (req, res) => {
     res.sendFile(__dirname + '/library.json');
 });
-
 app.get("/", (req, res) => {
     res.sendFile(__dirname + '/vrquin.html');
 });
@@ -69,13 +68,19 @@ app.post("/load", async (req, res) => {
     const { fileid } = req.body;
     await findMedia(fileid)
         .then((file) => {
-            vlc.stdin.write("clear\n");
-            vlc.stdin.write('add ' + file['src'] + '\n')
-            vlc.stdin.write("play\n");
+            // vlc.stdin.write("clear\n");
+            // vlc.stdin.write('add ' + file['src'] + '\n')
+            // vlc.stdin.write('enqueue' + file['src'] + '\n')
+            // vlc.stdin.write('goto 5\n')
+            vlc.stdin.write('goto ' + file['p_list'] + '\n')
+            // vlc.stdin.write("playlist\n")
+            // vlc.stdin.write("play\n");
             res.send({ status: "OK" })
         })
 });
-
+vlc.stdin.write('add ' + '/home/pi/vlc-http-controller-vrquin/videos/' + '\n')
+vlc.stdin.write("loop\n")
+// vlc.stdin.write("repeat\n")
 app.post("/seek", async (req, res) => {
     const { time } = req.body;
     console.log("SEEK", time)
@@ -90,7 +95,7 @@ app.post("/brip", (req, res) => {
         bri = 10;
     } else {
         if (bri == 1) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_1.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_1.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -98,7 +103,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 2) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_2.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_2.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -106,7 +111,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 3) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_3.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_3.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -114,7 +119,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 4) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_4.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_4.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -122,7 +127,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 5) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_5.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_5.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -130,7 +135,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 6) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_6.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_6.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -138,7 +143,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 7) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_7.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_7.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -146,7 +151,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 8) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_8.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_8.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -154,7 +159,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 9) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_9.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_9.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -162,7 +167,7 @@ app.post("/brip", (req, res) => {
                 console.log(temperatures);
             });
         } else {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_10.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_10.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -179,7 +184,7 @@ app.post("/brim", (req, res) => {
         bri = 1;
     } else {
         if (bri == 1) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_0.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_0.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -187,7 +192,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 2) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_1.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_1.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -195,7 +200,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 3) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_2.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_2.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -203,7 +208,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 4) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_3.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_3.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -211,7 +216,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 5) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_4.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_4.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -219,7 +224,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 6) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_5.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_5.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -227,7 +232,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 7) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_6.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_6.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -235,7 +240,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 8) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_7.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_7.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -243,7 +248,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else if (bri == 9) {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_8.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_8.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -251,7 +256,7 @@ app.post("/brim", (req, res) => {
                 console.log(temperatures);
             });
         } else {
-            sensor = spawn('python', ['/home/pi/vlc-http-controller-main/public/python/bright_9.py']);
+            sensor = spawn('python', ['/home/pi/vlc-http-controller-vrquin/public/python/bright_9.py']);
             sensor.stdout.on('data', function (data) {
 
                 // convert Buffer object to Float
@@ -288,7 +293,6 @@ app.post("/shutdown", (req, res) => {
     });
     res.send({ status: "OK" })
 });
-vlc.stdin.write("loop\n")
 app.post("/pause", (req, res) => {
     vlc.stdin.write("pause\n")
     res.send({ status: "OK" })
