@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
     <!-- <meta name="viewport" content="remote controller" , initial-scale=1.0"> -->
     <meta name="viewport" content="user-scalable=no">
     <title>VRQUIN-remote</title>
@@ -17,32 +17,44 @@
 
 <body>
     <div class="vrc0">
-        <div class="vrc1">
+        <div class="media">
             <div class="head-btn">
-                <div id="panelshutdown" class="button-r"><i class="fa fa-power-off" aria-hidden="true"
-                        style='color: red'></i></div>
-                <div id="library" class="button-rp"
+                <div id="panelshutdown" class="button-r" style="margin-left: 90px;"><i class="fa fa-power-off"
+                        aria-hidden="true" style='color: red'></i></div>
+                <!-- <div id="library" class="button-rp"
                     style="margin-left: 140px;margin-top :200px;font-weight:400;font-size: 60px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-                </div>
-                <div id="panelreboot" class="button-r" style="margin-left: 135px;"><i class="fa fa-refresh"
-                        aria-hidden="true" style='color: green'></i></div>
+                </div> -->
 
+                <div id="panelreboot" class="button-r" style="margin-left: 455px;"><i class="fa fa-refresh"
+                        aria-hidden="true" style='color: green'></i></div>
+            </div>
+            <div class="contents"> contents </div>
+            <div id="library" class="scroll" style="margin-left: 35px;">
+                <!-- <div id="library" class="scroll" style="margin-left: 155px;"> -->
             </div>
             <div class="vrc3">
                 <!-- <div id="panel1" class="button-r" style="margin-bottom: 50px;margin-top: -15px;"><i
-                        class='fa fa-volume-up'></i></div> -->
-                <div id="panelplaylist4" class="button-ro" style="margin-left: 175px;margin-top: 10px;margin-bottom: 30px;"><i
-                        class="fa fa-forward" aria-hidden="true"></i></div>
-                <div class="vrc4">
-                    <div id="panelplaylist1" class="button-ro"  style="margin-top: 40px;"><i class='fa fa-chevron-left fa-3x'></i></div>
-                    <!-- <div id="panelplaylist2" class="button-r"><i class='fa-angles-left'></i></div> -->
-                    <div id="panelplaylist3" class="button-rx"><i class="fa fa-play" aria-hidden="true"></i><i
-                            class="fa fa-pause" aria-hidden="true"></i></div>
-                    <!-- <div id="panelplaylist4" class="button-r"><i class='fa-solid fa-angles-left'></i></div> -->
-                    <div id="panelplaylist5" class="button-ro" style="margin-top: 40px;"><i class='fa fa-chevron-right'></i></div>
+                            class='fa fa-volume-up'></i></div> -->
+                <div id="panelplaylist4" class="button-ro"
+                    style="margin-left: 175px;margin-top: 10px;margin-bottom: 30px;">
+                    <i class="fa fa-forward" aria-hidden="true"></i>
                 </div>
-                <div id="panelplaylist2" class="button-ro" style="margin-left: 175px;margin-top: 25px;"><i class="fa fa-backward"
-                        aria-hidden="true"></i></div>
+                <div class="vrc4">
+                    <div id="panelplaylist1" class="button-ro" style=""><i class='fa fa-chevron-left fa-3x'></i></div>
+
+                    <!-- <div id="panelplaylist3" class="button-rx"><i class="fa fa-play" aria-hidden="true"></i><i
+                            class="fa fa-pause" aria-hidden="true"></i></div> -->
+                    <!-- <div id="panelplaylist2" class="button-r"><i class='fa-angles-left'></i></div> -->
+                    <div id="panelplaylist31" class="button-rx"><i class="fa fa-play" aria-hidden="true"></i></div>
+
+                    <div id="panelplaylist32" class="button-rx"><i class="fa fa-pause" aria-hidden="true"></i></div>
+                    <!-- <div id="panelplaylist4" class="button-r"><i class='fa-solid fa-angles-left'></i></div> -->
+                    <div id="panelplaylist5" class="button-ro" style="margin-top: 40px;"><i
+                            class='fa fa-chevron-right'></i>
+                    </div>
+                </div>
+                <div id="panelplaylist2" class="button-ro" style="margin-left: 175px;margin-top: 25px;"><i
+                        class="fa fa-backward" aria-hidden="true"></i></div>
 
                 <!-- <div id="panel4" class="button-r"><i class='fa fa-volume-down'></i></div> -->
             </div>
@@ -56,9 +68,10 @@
                     <div id="panel5" class="button2"><i class="fa fa-sun-o"></i></div>
                 </div>
             </div>
-            <div id="panel7" class="button-r" style="margin-left: 390px;margin-top: -200px;"><i class='fa fa-volume-off'></i></div>
+            <div id="panel7" class="button-r" style="margin-left: 390px;margin-top: -400px;"><i
+                    class='fa fa-volume-off'></i></div>
             <!-- <div id="playlist" class="button-r1" style="margin-left: 25px;"></div> -->
-
+            <div id="videos"></div>
 
         </div>
     </div>
@@ -66,7 +79,7 @@
     <script type="text/javascript" src="/js/vrquin.js"></script>
     <!-- <script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script> -->
     <script>
-        const library = d3.select("#library").append("a")
+        const library = d3.select("#library").append('div')
         function loadClips(clips) {
             console.log("LOAD", clips)
             d3.select("#clips").selectAll("*").remove();
@@ -88,12 +101,20 @@
             for (let file of files) {
                 const m = library;
                 // m.append("span").text(file.title)
-                m.append("a").text("Play!").on("click", function () {
-                    callVLC("load", { fileid: file.id })
-                })
+                // m.append('div').text(file.title).on("click", function () {
+                //     callVLC("load", { fileid: file.id })
+                // })
+                if (file.video_n.endsWith(".mp4")) {
+                    m.append('img').attr('src', file.img_p).on("click", function () {
+                        callVLC("load", { fileid: file.id })
+                    })
+                } else {
+                    m.append('div').text(file.title).on("click", function () {
+                        callVLC("load", { fileid: file.id })
+                    })
+                }
             }
         })
-
         function showPlaylist(data) {
             console.log("BANG")
             d3.select("#playlist").selectAll("*").remove();
@@ -134,10 +155,18 @@
         const panel7 = d3.select("#panel7");
         const panel8 = d3.select("#panel8");
         const panel9 = d3.select("#panel9");
+        const panel10 = d3.select("#panel10");
+        const panel11 = d3.select("#panel11");
+        const panel12 = d3.select("#panel12");
+        const panel13 = d3.select("#panel13");
+        const panel14 = d3.select("#panel14");
+        const panel15 = d3.select("#panel15");
         const playlist = d3.select("#playlist");
         const panelplaylist1 = d3.select("#panelplaylist1")
         const panelplaylist2 = d3.select("#panelplaylist2")
         const panelplaylist3 = d3.select("#panelplaylist3")
+        const panelplaylist31 = d3.select("#panelplaylist31")
+        const panelplaylist32 = d3.select("#panelplaylist32")
         const panelplaylist4 = d3.select("#panelplaylist4")
         const panelplaylist5 = d3.select("#panelplaylist5")
         const panelreboot = d3.select("#panelreboot")
@@ -146,7 +175,24 @@
 
 
 
-
+        panel10.on("click", function () {
+            callVLC("load110", {})
+        })
+        panel11.on("click", function () {
+            callVLC("load111", {})
+        })
+        panel12.on("click", function () {
+            callVLC("load112", {})
+        })
+        panel13.on("click", function () {
+            callVLC("load113", {})
+        })
+        panel14.on("click", function () {
+            callVLC("load114", {})
+        })
+        panel15.on("click", function () {
+            callVLC("load115", {})
+        })
         panel7.on("click", function () {
             callVLC("mute", {})
         })
@@ -233,6 +279,12 @@
         panelplaylist3.on("click", function () {
             callVLC("pause", {})
         })
+        panelplaylist31.on("click", function () {
+            callVLC("pause", {})
+        })
+        panelplaylist32.on("click", function () {
+            callVLC("pause", {})
+        })
         panelplaylist4.on("click", function () {
             callVLC("fastforward", {})
         })
@@ -252,6 +304,23 @@
         panelshutdown.on("click", function () {
             callVLC("shutdown", {})
         })
+    </script>
+    <script>
+        const targetDiv1 = document.getElementById("panelplaylist31");
+        const targetDiv2 = document.getElementById("panelplaylist32");
+        targetDiv1.style.display = "none";
+        targetDiv1.onclick = function () {
+            if (targetDiv1.style.display != "none") {
+                targetDiv1.style.display = "none";
+                targetDiv2.style.display = "block";
+            }
+        }
+        targetDiv2.onclick = function () {
+            if (targetDiv2.style.display != "none") {
+                targetDiv2.style.display = "none";
+                targetDiv1.style.display = "block";
+            }
+        }
     </script>
 </body>
 
