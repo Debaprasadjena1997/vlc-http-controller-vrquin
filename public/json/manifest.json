@@ -1,1 +1,25 @@
 
+
+
+{
+    "lang": "en",
+    "dir": "ltr",
+    "name": "VRQUIN-remote",
+    "short_name": "VRQUIN-remote",
+    "icons": [{
+      "src": "images/vrquin-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }, {
+      "src": "images/vrquin-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }],
+    "scope": "/",
+    "id": "/?source=pwa",
+    "start_url": "./vrquin.html",
+    "display": "standalone",
+    "orientation": "landscape",
+    "theme_color": "aliceblue",
+    "background_color": "white"
+  }
